@@ -1,6 +1,3 @@
-bioinformatics_algorithms
-=========================
-
 .. toctree::
    :maxdepth: 4
 

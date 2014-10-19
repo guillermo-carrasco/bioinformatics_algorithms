@@ -14,12 +14,18 @@ of the course theory.
 Please note that this theory is just a summary of the content of the course, so
 all the merits go, obviously, to the course instructors and creators.
 
-Contents:
+Course Theory:
 
 .. toctree::
    :maxdepth: 2
 
    theory/index
+
+Source Code Documentation:
+
+.. toctree::
+   :maxdepth: 2
+
    api/modules
 
 
