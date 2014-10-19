@@ -4,7 +4,6 @@ python:
     - "2.7"
 
 install:
-    - cd bioinformatics_algorithms
     - python setup.py install
 
 script:
