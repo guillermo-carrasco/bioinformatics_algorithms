@@ -1,0 +1,14 @@
+language: python
+
+python:
+    - "2.7"
+
+install:
+    - cd bioinformatics_algorithms
+    - puthon setup.py install
+
+script:
+    - cd tests && nosetests -v -s
+
+notifications:
+    email: false
