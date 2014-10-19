@@ -4,6 +4,9 @@ Course url: https://class.coursera.org/bioinformatics-002
 
 [![Build Status](https://travis-ci.org/guillermo-carrasco/bioinformatics_algorithms.svg?branch=master)](https://travis-ci.org/guillermo-carrasco/bioinformatics_algorithms)
 
+[![Documentation Status](https://readthedocs.org/projects/bioinformatics-algorithms/badge/?version=latest)](https://readthedocs.org/projects/bioinformatics-algorithms/?badge=latest)
+
+
 ## Bioinformatics Algorithms I
 This course is the first in a two-part series covering some of the algorithms underlying bioinformatics. 
 It will cover some of the algorithms underlying the following fundamental topics in bioinformatics: 
