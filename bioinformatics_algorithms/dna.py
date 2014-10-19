@@ -9,7 +9,7 @@ def pattern_count(t, p, start=0):
     :param p: String - Pattern (K-mer) to find in t
     :param start: Integer - Start in position <start> in the DNA
     :returns: Integer - n number of occurrences of p in t
-    :raises: ValueError - If start >= len(t)
+    :raises: ValueError - If start < 0 or >= len(t)
     """
     if start < 0 or start >= len(t):
         raise ValueError('The starting position should be between 0 and the size ' + \
