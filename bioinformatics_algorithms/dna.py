@@ -27,7 +27,7 @@ def frequent_kmers(DNA, k):
 
     :param DNA: String - DNA
     :param k: Integer - Length of the K-mer
-    :returns: List - List of most frequent K-mers in DNA
+    :returns: Set - Set of most frequent K-mers in DNA
     """
     kmers = set()
     most_frequent = Queue.PriorityQueue()
@@ -37,9 +37,11 @@ def frequent_kmers(DNA, k):
         kmer = ''.join(DNA[i:i+k])
         if kmer in kmers:
             continue
-        # Priority queue will return the lowest first, so we can negate it if we
-        # want to get the higher priorite (frequence) first
-        most_frequent.put((-pattern_count(DNA, kmer), kmer))
+        else:
+            kmers.add(kmer)
+            # Priority queue will return the lowest first, so we can negate it if we
+            # want to get the higher priorite (frequence) first
+            most_frequent.put((-pattern_count(DNA, kmer), kmer))
 
     # Extract most frequent K-mers
     result = set()

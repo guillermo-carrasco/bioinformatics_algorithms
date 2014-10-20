@@ -18,3 +18,9 @@ class DNATests(unittest.TestCase):
             dna.pattern_count(DNA, PATTERN, 10)
         self.assertEqual(dna.pattern_count(DNA, PATTERN), 2)
 
+    def test_2_frequent_kmers(self):
+        """ Tests for the frequen words (K-mers) method...
+        """
+        DNA = 'ACGTTGCATGTCGCATGATGCATGAGAGCT'
+        K = 4
+        self.assertEqual(dna.frequent_kmers(DNA, K), set(['CATG', 'GCAT']))
