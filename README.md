@@ -4,7 +4,15 @@ Course url: https://class.coursera.org/bioinformatics-002
 
 [![Build Status](https://travis-ci.org/guillermo-carrasco/bioinformatics_algorithms.svg?branch=master)](https://travis-ci.org/guillermo-carrasco/bioinformatics_algorithms)
 
-[![Documentation Status](https://readthedocs.org/projects/bioinformatics-algorithms/badge/?version=latest)](https://readthedocs.org/projects/bioinformatics-algorithms/?badge=latest) 
+## Documentation
 
-[Documentation](http://bioinformatics-algorithms.readthedocs.org/en/latest/)
+You can build the documentation for this package as follows:
 
+    cd doc
+    make html
+
+The root of the documentation will be on `doc/source/index.html`, just open it
+with a browser.
+
+The documentation consist on two parts: The source code documentation and the 
+theory for the course. 
