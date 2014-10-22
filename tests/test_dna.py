@@ -2,7 +2,7 @@
 """
 import unittest
 
-from bioinformatics_algorithms import dna
+from bioinformatics_algorithms.dna import dna
 
 class DNATests(unittest.TestCase):
     """ Test all methods related with DNA manipulation
