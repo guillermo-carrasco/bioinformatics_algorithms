@@ -9,9 +9,11 @@ class TestArrayDataStructures(unittest.TestCase):
     """ Test array-based data structures
     """
     def test_1_frequency_array(self):
-        """ Testing frequency array...
+        """ Testing frequency array process...
         """
-        DNA = 'ACGCGGCTCTGAAA'
-        K = 2
-        fa = arrays.FrequencyArray(DNA, K)
-        self.assertEqual(fa.get_frequency_array(), [2, 1, 0, 0, 0, 0, 2, 2, 1, 2, 1, 0, 0, 1, 1, 0])
+        fa = arrays.FrequencyArray('ACGTTGCATGTCGCATGATGCATGAGAGCT', 4)
+        with open('test_frequency_array.txt', 'r') as f:
+            freq_array = [int(x) for x in f.readline().split()]
+
+        self.assertEqual(fa.get_frequency_array(), freq_array)
+        self.assertEqual(fa.get_frequent(), set(['CATG', 'GCAT']))

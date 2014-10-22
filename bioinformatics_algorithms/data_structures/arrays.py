@@ -14,6 +14,7 @@ class FrequencyArray(object):
         assert K >= 1
         assert len(DNA) >= K
 
+        self.K = K
         self.kmers = [''.join(p) for p in itertools.product(['A','C','T','G'], repeat=K)]
         self.freq = [0] * pow(4, K)
 
@@ -22,10 +23,22 @@ class FrequencyArray(object):
             index = self._pattern_to_number(''.join(DNA[i:i+K]))
             self.freq[index] += 1
 
+
     def get_frequency_array(self):
         """ Return already computed frequency array
         """
         return self.freq
+
+
+    def get_frequent(self):
+        """ Retunr a list with the most frequent k-mers
+        """
+        m = max(self.freq)
+        most_freq = set()
+        for i in range(len(self.kmers)):
+            if self.freq[i] == m:
+                most_freq.add(self._number_to_pattern(i, self.K))
+        return most_freq
 
 
     def _pattern_to_number(self, kmer):
@@ -66,11 +79,13 @@ class FrequencyArray(object):
             quotient, reminder = divmod(n, 4)
             return self._number_to_pattern(quotient, k-1) + self._number_to_symbol(reminder)
 
+
     def _symbol_to_number(self, s):
         """ Function transforming symbols A, C, G, and T into the respective integers 0, 1, 2, and 3.
         """
         nucleotides = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
         return nucleotides[s]
+
 
     def _number_to_symbol(self, n):
         """ Function transforming symbols o, 1, 2, and 3 into the respective nucleotides A, C, G, and T.
