@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(name='bioinformatics algorithms',
       version='1.0',
@@ -9,5 +9,5 @@ setup(name='bioinformatics algorithms',
       author='Guillermo Carrasco',
       author_email='guille.ch.88@gmail.com',
       url='http://mussolblog.wordpress.com',
-      packages=['bioinformatics_algorithms'],
+      packages=find_packages(exclude=['tests']),
 )
