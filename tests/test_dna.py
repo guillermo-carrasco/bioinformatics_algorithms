@@ -24,3 +24,12 @@ class DNATests(unittest.TestCase):
         DNA = 'ACGTTGCATGTCGCATGATGCATGAGAGCT'
         K = 4
         self.assertEqual(dna.frequent_kmers(DNA, K), set(['CATG', 'GCAT']))
+
+    def test_3_reverse_complement(self):
+        """ Testing reverse complement method...
+        """
+        DNA = 'AAAACCCGGT'
+        reverse = 'ACCGGGTTTT'
+        self.assertEqual(dna.reverse_complement(DNA), list(reverse))
+        self.assertEqual(dna.reverse_complement(DNA, as_string=True), reverse)
+

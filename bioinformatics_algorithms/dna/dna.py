@@ -58,3 +58,12 @@ def frequent_kmers(DNA, k):
                 first = False
     return result
 
+
+def reverse_complement(DNA, as_string=False):
+    """ Returns the Reverse Complement of DNA
+    """
+    reverse_dic = {'A': 'T', 'T': 'A', 'G': 'C', 'C': 'G'}
+    reverse_comp = [reverse_dic[nuc] for nuc in DNA[::-1]]
+    if as_string:
+        reverse_comp = ''.join(reverse_comp)
+    return reverse_comp
