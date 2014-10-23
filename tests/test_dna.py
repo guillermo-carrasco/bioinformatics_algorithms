@@ -46,4 +46,4 @@ class DNATests(unittest.TestCase):
         L = 50
         t = 4
         res = {'CGACA', 'GAAGA'}
-        self.assertEqual(dna.clumps(DNA, k, L, t), res)
+        self.assertEqual(dna.find_clumps(DNA, k, L, t), res)

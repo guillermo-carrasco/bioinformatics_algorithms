@@ -87,7 +87,7 @@ def find_kmer(kmer, DNA):
     return res
 
 
-def clumps(DNA, k, L, t):
+def find_clumps(DNA, k, L, t):
     """ Find kmers forming clumps in DNA
 
     For a determined K-mer we say it forms an (L, t)-Clump, if K-mer appears at
