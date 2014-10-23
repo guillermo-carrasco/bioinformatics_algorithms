@@ -2,12 +2,13 @@
 """
 import Queue
 
-def pattern_count(t, p, start=0):
+def pattern_count(t, p, start=0, end=0):
     """ Counts number of overlapping occurrences of pattern p in text t.
 
     :param t: String - Text (DNA) to look for
     :param p: String - Pattern (K-mer) to find in t
     :param start: Integer - Start in position <start> in the DNA
+    :param end: Integer - End in position <end> in the DNA
     :returns: Integer - n number of occurrences of p in t
     :raises: ValueError - If start < 0 or >= len(t)
     """
@@ -16,7 +17,8 @@ def pattern_count(t, p, start=0):
             'of the DNA')
     k = len(p)
     count = 0
-    for i in range(0, len(t) - k + 1):
+    end = len(t) - k + 1 if end == 0 else end
+    for i in range(0, end):
         if t[i:i+k] == p:
             count += 1
     return count
@@ -83,3 +85,34 @@ def find_kmer(kmer, DNA):
         if DNA[i:i+k] == kmer:
             res.append(i)
     return res
+
+
+def clumps(DNA, k, L, t):
+    """ Find kmers forming clumps in DNA
+
+    For a determined K-mer we say it forms an (L, t)-Clump, if K-mer appears at
+    least t times in a region of length L in DNA
+
+    :param DNA: String - Genome
+    :param k: Integer - Length of the K-mer
+    :param L: Integer - Size of the clump
+    :param t: Integer - Number of times kmer must appear in the DNA region
+
+    :return: List - K-mers forming (L, t)-Clumps in DNA
+    """
+    assert len(DNA) >= L
+
+    clumps = set()
+    # Go through all regions of length L in the DNA
+    for i in range(0, len(DNA)-L+1):
+        # For each k-mer, find number of occurrences in the region
+        region = DNA[i:i+L]
+        kmers = set()
+        for j in range(i, i+L-1-k):
+            kmer = DNA[j:j+k]
+            if not kmer in kmers:
+                kmers.add(kmer)
+                _t = pattern_count(region, kmer)
+                if _t >= t:
+                    clumps.add(kmer)
+    return clumps

@@ -37,3 +37,13 @@ class DNATests(unittest.TestCase):
         """ Testing finding k-mer in DNA method...
         """
         self.assertEqual(dna.find_kmer('ATAT', 'GATATATGCATATACTT'), [1, 3, 9])
+
+    def test_5_find_clumps(self):
+        """ Testing find clumps method...
+        """
+        DNA = 'CGGACTCGACAGATGTGAAGAACGACAATGTGAAGACTCGACACGACAGAGTGAAGAGAAGAGGAAACATTGTAA'
+        k = 5
+        L = 50
+        t = 4
+        res = {'CGACA', 'GAAGA'}
+        self.assertEqual(dna.clumps(DNA, k, L, t), res)
