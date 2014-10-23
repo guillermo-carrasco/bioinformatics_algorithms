@@ -33,3 +33,7 @@ class DNATests(unittest.TestCase):
         self.assertEqual(dna.reverse_complement(DNA), list(reverse))
         self.assertEqual(dna.reverse_complement(DNA, as_string=True), reverse)
 
+    def test_4_find_kmer(self):
+        """ Testing finding k-mer in DNA method...
+        """
+        self.assertEqual(dna.find_kmer('ATAT', 'GATATATGCATATACTT'), [1, 3, 9])

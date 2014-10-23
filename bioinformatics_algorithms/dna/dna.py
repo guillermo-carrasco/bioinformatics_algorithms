@@ -67,3 +67,19 @@ def reverse_complement(DNA, as_string=False):
     if as_string:
         reverse_comp = ''.join(reverse_comp)
     return reverse_comp
+
+
+def find_kmer(kmer, DNA):
+    """ Find all occurences of K-mer in DNA
+
+    :param kmer: String - K-mer to find in DNA
+    :param DNA: String - DNA
+
+    :return: List - Starting positions of kmer in DNA
+    """
+    res = []
+    k = len(kmer)
+    for i in range(len(DNA) - k + 1):
+        if DNA[i:i+k] == kmer:
+            res.append(i)
+    return res
