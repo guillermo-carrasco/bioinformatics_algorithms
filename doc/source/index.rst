@@ -7,19 +7,7 @@ Welcome to Bioinformatics Algorithms's documentation!
 =====================================================
 
 In this documentation you'll find the methods needed to solve the problems in the
-MOOC `Bioinformatics Algorithms (Part I)`_ from Coursera. Also, as I think the theory behind
-the course is as interesting as the algorithms, here you will find also a summary
-of the course theory. 
-
-Please note that this theory is just a summary of the content of the course, so
-all the merits go, obviously, to the course instructors and creators.
-
-Course Theory:
-
-.. toctree::
-   :maxdepth: 2
-
-   theory/index
+MOOC `Bioinformatics Algorithms (Part I)`_ from Coursera.
 
 Source Code Documentation:
 
