@@ -30,7 +30,7 @@ class FrequencyArray(object):
         return self.freq
 
 
-    def get_frequent(self):
+    def get_most_frequent(self):
         """ Retunr a list with the most frequent k-mers
         """
         m = max(self.freq)
@@ -39,6 +39,25 @@ class FrequencyArray(object):
             if self.freq[i] == m:
                 most_freq.add(self._number_to_pattern(i, self.K))
         return most_freq
+
+
+    def get_frequency(self, kmer):
+        """ Returns the frequency for a determined kmer
+        """
+        return self.freq[self._pattern_to_number(kmer)]
+
+
+    def set_frequency(self, kmer, f):
+        """ Set f as the frequency of kmer in the frequency array.
+
+        This method allows the use of frequency arrays for sliding windows in a
+        DNA string.
+
+        :param kmer: String - kmer to set frequency
+        :param f: Integer - Frequency
+        """
+        assert f >= 0
+        self.freq[self._pattern_to_number(kmer)] = f
 
 
     def _pattern_to_number(self, kmer):

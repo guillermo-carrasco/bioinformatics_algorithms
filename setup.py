@@ -3,7 +3,6 @@
 from setuptools import setup, find_packages
 
 setup(name='bioinformatics algorithms',
-      version='1.0',
       description="Bioinformatic tools and routines used to solve the problems \
               proposed on coursera course Bioinformatics Algorithms 1",
       author='Guillermo Carrasco',
