@@ -18,9 +18,13 @@ class FrequencyArray(object):
         self.kmers = [''.join(p) for p in itertools.product(['A','C','T','G'], repeat=K)]
         self.freq = [0] * pow(4, K)
 
+        # Pre-compute dictionaries of _pattern_to_number and number_to_pattern
+        self.pattern_to_number = {kmer:self._pattern_to_number(kmer) for kmer in self.kmers}
+        self.number_to_pattern = {i:self._number_to_pattern(i, K) for i in range(len(self.freq))}
+
         # Compute frequency array
         for i in range(len(DNA) - K + 1):
-            index = self._pattern_to_number(''.join(DNA[i:i+K]))
+            index = self.pattern_to_number[''.join(DNA[i:i+K])]
             self.freq[index] += 1
 
 
@@ -37,14 +41,14 @@ class FrequencyArray(object):
         most_freq = set()
         for i in range(len(self.kmers)):
             if self.freq[i] == m:
-                most_freq.add(self._number_to_pattern(i, self.K))
+                most_freq.add(self.number_to_pattern[i])
         return most_freq
 
 
     def get_frequency(self, kmer):
         """ Returns the frequency for a determined kmer
         """
-        return self.freq[self._pattern_to_number(kmer)]
+        return self.freq[self.pattern_to_number[kmer]]
 
 
     def set_frequency(self, kmer, f):
@@ -57,7 +61,7 @@ class FrequencyArray(object):
         :param f: Integer - Frequency
         """
         assert f >= 0
-        self.freq[self._pattern_to_number(kmer)] = f
+        self.freq[self.pattern_to_number[kmer]] = f
 
 
     def _pattern_to_number(self, kmer):

@@ -107,25 +107,34 @@ def find_clumps(DNA, k, L, t):
     clumps = set()
     # Construct the frequency array for the first region of size L in the DNA
     fa = arrays.FrequencyArray(DNA[:L], k)
-    first_window = True
-    # Go through all regions of length L in the DNA
-    for i in range(0, len(DNA)-L+1):
-        # For each k-mer, find number of occurrences in the region
+
+    # For each kmer in the first window, check if frequency >= t and correspondingly
+    # add the kmer to the clumps set
+    kmers = set()
+    for i in range(0, L - k + 1):
+        kmer = DNA[i:i+k]
+        if not kmer in kmers:
+            kmers.add(kmer)
+            _t = fa.get_frequency(kmer)
+            if _t >= t:
+                clumps.add(kmer)
+
+    # Decrease the frequency of the first kmer for the next iteration
+    first_kmer = DNA[0:k]
+    f = fa.get_frequency(first_kmer) - 1
+    fa.set_frequency(first_kmer, f)
+
+    # Go through all other regions of length L in the DNA
+    for i in range(1, len(DNA)-L+1):
         region = DNA[i:i+L]
         # If not the first iteration, increase the frequency of the recently added
-        # last kmer
-        if not first_window:
-            last_kmer = DNA[i+L-k:i+L]
-            f = fa.get_frequency(last_kmer) + 1
-            fa.set_frequency(last_kmer, f)
-        kmers = set()
-        for j in range(i, i + L - k + 1):
-            kmer = DNA[j:j+k]
-            if not kmer in kmers:
-                kmers.add(kmer)
-                _t = fa.get_frequency(kmer)
-                if _t >= t:
-                    clumps.add(kmer)
+        # last kmer. If that frequency >= t, add the kmer to the set of clumps
+        last_kmer = DNA[i+L-k:i+L]
+        f = fa.get_frequency(last_kmer) + 1
+        fa.set_frequency(last_kmer, f)
+        if f >= t:
+            clumps.add(last_kmer)
+
         # Decrese the frequency of the first kmer in the region, as the sliding
         # window will remove it
         first_kmer = DNA[i:i+k]
