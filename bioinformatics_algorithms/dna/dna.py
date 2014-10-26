@@ -1,7 +1,11 @@
 """ DNA related algorithms
 """
-import matplotlib.pyplot as plt
+try:
+    import matplotlib.pyplot as plt
+except ImportError:
+    pass
 import Queue
+import sys
 
 from bioinformatics_algorithms.data_structures import arrays
 
@@ -163,8 +167,11 @@ def skew(DNA, chart=False):
             G_C -= 1
         res.append(G_C)
     if chart:
-        plt.plot(res)
-        plt.ylabel('G - C diff')
-        plt.title('Skew diagram')
-        plt.savefig('skew.png')
+        if sys.modules.get('matplotlib', None):
+            plt.plot(res)
+            plt.ylabel('G - C diff')
+            plt.title('Skew diagram')
+            plt.savefig('skew.png')
+        else:
+            print "No matplotlib module found, not creating skew diagram"
     return res
