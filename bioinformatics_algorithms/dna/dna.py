@@ -1,5 +1,6 @@
 """ DNA related algorithms
 """
+import matplotlib.pyplot as plt
 import Queue
 
 from bioinformatics_algorithms.data_structures import arrays
@@ -149,6 +150,9 @@ def skew(DNA, chart=False):
 
     We define skew(DNA) as the difference between the total number of occurrences
     of G and the total number of occurrences of C in DNA.
+
+    :param DNA: String - DNA to calculate skew
+    :Param chart: Boolean - If True, will save a skew.png chart in the current directory.
     """
     res = [0]
     G_C = 0
@@ -158,4 +162,9 @@ def skew(DNA, chart=False):
         elif n == 'C':
             G_C -= 1
         res.append(G_C)
+    if chart:
+        plt.plot(res)
+        plt.ylabel('G - C diff')
+        plt.title('Skew diagram')
+        plt.savefig('skew.png')
     return res
