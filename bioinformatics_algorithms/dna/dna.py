@@ -186,3 +186,10 @@ def skew(DNA, chart=False):
         else:
             print "No matplotlib module found, not creating skew diagram"
     return (res, indexes)
+
+
+def hamming_distance(s1, s2):
+    """ Computes the Hamming Distance between s1 and s2
+    """
+    assert len(s1) == len(s2)
+    return sum([1 if c1 != c2 else 0 for c1, c2 in zip(s1, s2)])

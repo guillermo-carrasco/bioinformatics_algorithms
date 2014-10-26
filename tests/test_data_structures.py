@@ -9,7 +9,7 @@ class TestArrayDataStructures(unittest.TestCase):
     """ Test array-based data structures
     """
     def test_1_frequency_array(self):
-        """ Testing frequency array process...
+        """ Testing frequency array data structure...
         """
         fa = arrays.FrequencyArray('ACGTTGCATGTCGCATGATGCATGAGAGCT', 4)
         with open('test_frequency_array.txt', 'r') as f:

@@ -57,3 +57,11 @@ class DNATests(unittest.TestCase):
         _skew, _min_skew = dna.skew(DNA)
         self.assertEqual(skew, _skew)
         self.assertEqual(min_skew, _min_skew)
+
+
+    def test_7_hamming(self):
+        """ Testing hamming distance method...
+        """
+        with self.assertRaises(AssertionError):
+            dna.hamming_distance('AC', 'ACTG')
+        self.assertEqual(2, dna.hamming_distance('ACTTA', 'AATTC'))
