@@ -156,15 +156,26 @@ def skew(DNA, chart=False):
     of G and the total number of occurrences of C in DNA.
 
     :param DNA: String - DNA to calculate skew
-    :Param chart: Boolean - If True, will save a skew.png chart in the current directory.
+    :param chart: Boolean - If True, will save a skew.png chart in the current directory.
+
+    :return: Tuple - With skew array and list of positions where the skew minimizes.
     """
     res = [0]
     G_C = 0
+    _min = 0
+    indexes = []
     for i, n in enumerate(DNA):
         if n == 'G':
             G_C += 1
         elif n == 'C':
             G_C -= 1
+        # Compute the min. NOTE: We have to sum one to the indexes because we already
+        # start with an extra element in the res (a 0)
+        if G_C < _min:
+            _min = G_C
+            indexes = [i+1]
+        elif G_C == _min:
+            indexes.append(i+1)
         res.append(G_C)
     if chart:
         if sys.modules.get('matplotlib', None):
@@ -174,4 +185,4 @@ def skew(DNA, chart=False):
             plt.savefig('skew.png')
         else:
             print "No matplotlib module found, not creating skew diagram"
-    return res
+    return (res, indexes)

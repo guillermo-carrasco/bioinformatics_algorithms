@@ -52,5 +52,8 @@ class DNATests(unittest.TestCase):
         """ Testing skew genome method...
         """
         DNA = 'GAGCCACCGCGATA'
-        res = [0, 1, 1, 2, 1, 0, 0, -1, -2, -1, -2, -1, -1, -1, -1]
-        self.assertEqual(res, dna.skew(DNA))
+        skew = [0, 1, 1, 2, 1, 0, 0, -1, -2, -1, -2, -1, -1, -1, -1]
+        min_skew = [8, 10]
+        _skew, _min_skew = dna.skew(DNA)
+        self.assertEqual(skew, _skew)
+        self.assertEqual(min_skew, _min_skew)
