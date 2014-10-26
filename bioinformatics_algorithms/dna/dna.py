@@ -142,3 +142,20 @@ def find_clumps(DNA, k, L, t):
         fa.set_frequency(first_kmer, f)
         first_window = False
     return clumps
+
+
+def skew(DNA, chart=False):
+    """ Give all values of Skew(DNA)
+
+    We define skew(DNA) as the difference between the total number of occurrences
+    of G and the total number of occurrences of C in DNA.
+    """
+    res = [0]
+    G_C = 0
+    for i, n in enumerate(DNA):
+        if n == 'G':
+            G_C += 1
+        elif n == 'C':
+            G_C -= 1
+        res.append(G_C)
+    return res

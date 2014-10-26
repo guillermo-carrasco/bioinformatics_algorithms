@@ -47,3 +47,10 @@ class DNATests(unittest.TestCase):
         t = 4
         res = {'CGACA', 'GAAGA'}
         self.assertEqual(dna.find_clumps(DNA, k, L, t), res)
+
+    def test_6_skew_genome(self):
+        """ Testing skew genome method...
+        """
+        DNA = 'GAGCCACCGCGATA'
+        res = [0, 1, 1, 2, 1, 0, 0, -1, -2, -1, -2, -1, -1, -1, -1]
+        self.assertEqual(res, dna.skew(DNA))
