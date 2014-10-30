@@ -24,6 +24,7 @@ class DNATests(unittest.TestCase):
         DNA = 'ACGTTGCATGTCGCATGATGCATGAGAGCT'
         K = 4
         self.assertEqual(dna.frequent_kmers(DNA, K), set(['CATG', 'GCAT']))
+        self.assertEqual(dna.frequent_kmers(DNA, K, m=1), {'ATGC', 'ATGT', 'GATG'})
 
     def test_3_reverse_complement(self):
         """ Testing reverse complement method...
@@ -57,11 +58,3 @@ class DNATests(unittest.TestCase):
         _skew, _min_skew = dna.skew(DNA)
         self.assertEqual(skew, _skew)
         self.assertEqual(min_skew, _min_skew)
-
-
-    def test_7_hamming(self):
-        """ Testing hamming distance method...
-        """
-        with self.assertRaises(AssertionError):
-            dna.hamming_distance('AC', 'ACTG')
-        self.assertEqual(2, dna.hamming_distance('ACTTA', 'AATTC'))

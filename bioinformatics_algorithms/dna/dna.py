@@ -4,18 +4,20 @@ try:
     import matplotlib.pyplot as plt
 except ImportError:
     pass
+import itertools
 import Queue
 import sys
 
-from bioinformatics_algorithms.data_structures import arrays
+from bioinformatics_algorithms.data_structures import dictionaries
 
-def pattern_count(t, p, start=0, end=0):
+def pattern_count(t, p, start=0, end=0, m=0):
     """ Counts number of overlapping occurrences of pattern p in text t.
 
     :param t: String - Text (DNA) to look for
     :param p: String - Pattern (K-mer) to find in t
     :param start: Integer - Start in position <start> in the DNA
     :param end: Integer - End in position <end> in the DNA
+    :param mismatches: Integer - Allow m mismatches
     :returns: Integer - n number of occurrences of p in t
     :raises: ValueError - If start < 0 or >= len(t)
     """
@@ -26,46 +28,30 @@ def pattern_count(t, p, start=0, end=0):
     count = 0
     end = len(t) - k + 1 if end == 0 else end
     for i in range(0, end):
-        if t[i:i+k] == p:
+        if hamming_distance(t[i:i+k], p) <= m:
             count += 1
     return count
 
 
-def frequent_kmers(DNA, k):
-    """ Return a list of most frequent k-mers in DNA
+def frequent_kmers(DNA, k, m=0):
+    """ Return a list of most frequent k-mers in DNA.
 
     :param DNA: String - DNA
     :param k: Integer - Length of the K-mer
+    :param m: Allow for m mismatches
     :returns: Set - Set of most frequent K-mers in DNA
     """
-    kmers = set()
-    most_frequent = Queue.PriorityQueue()
-    # Go through all the K-mers in DNA and, if the K-mer is found, frist check
-    # if it has been found previously and, if not, count its occurences.
-    for i in range(0, len(DNA) - k + 1):
-        kmer = ''.join(DNA[i:i+k])
-        if kmer in kmers:
-            continue
-        else:
-            kmers.add(kmer)
-            # Priority queue will return the lowest first, so we can negate it if we
-            # want to get the higher priorite (frequence) first
-            most_frequent.put((-pattern_count(DNA, kmer), kmer))
+    fd = dictionaries.FrequencyDict(DNA, k, m)
 
-    # Extract most frequent K-mers
-    result = set()
-    first = True
-    freq = -1
-    if not most_frequent.empty():
-        while not most_frequent.empty():
-            kmer = most_frequent.get()
-            if not first and kmer[0] != freq:
-                break
-            else:
-                result.add(kmer[1])
-                freq = kmer[0]
-                first = False
-    return result
+    freq = 0
+    frequent = set()
+    for kmer, frequency in fd.iteritems():
+        if frequency > freq:
+            freq = frequency
+            frequent = set([kmer])
+        elif frequency == freq:
+            frequent.add(kmer)
+    return frequent
 
 
 def reverse_complement(DNA, as_string=False):
@@ -78,18 +64,19 @@ def reverse_complement(DNA, as_string=False):
     return reverse_comp
 
 
-def find_kmer(kmer, DNA):
+def find_kmer(kmer, DNA, m=0):
     """ Find all occurences of K-mer in DNA
 
     :param kmer: String - K-mer to find in DNA
     :param DNA: String - DNA
+    :param m: Integer - Allow for m mismatches
 
     :return: List - Starting positions of kmer in DNA
     """
     res = []
     k = len(kmer)
     for i in range(len(DNA) - k + 1):
-        if DNA[i:i+k] == kmer:
+        if hamming_distance(DNA[i:i+k], kmer) <= m:
             res.append(i)
     return res
 
@@ -110,8 +97,8 @@ def find_clumps(DNA, k, L, t):
     assert len(DNA) >= L
 
     clumps = set()
-    # Construct the frequency array for the first region of size L in the DNA
-    fa = arrays.FrequencyArray(DNA[:L], k)
+    # Construct the frequency dict for the first region of size L in the DNA
+    fa = dictionaries.FrequencyDict(DNA[:L], k)
 
     # For each kmer in the first window, check if frequency >= t and correspondingly
     # add the kmer to the clumps set
@@ -120,32 +107,27 @@ def find_clumps(DNA, k, L, t):
         kmer = DNA[i:i+k]
         if not kmer in kmers:
             kmers.add(kmer)
-            _t = fa.get_frequency(kmer)
+            _t = fa[kmer]
             if _t >= t:
                 clumps.add(kmer)
 
     # Decrease the frequency of the first kmer for the next iteration
     first_kmer = DNA[0:k]
-    f = fa.get_frequency(first_kmer) - 1
-    fa.set_frequency(first_kmer, f)
+    fa[first_kmer] -= 1
 
     # Go through all other regions of length L in the DNA
     for i in range(1, len(DNA)-L+1):
-        region = DNA[i:i+L]
         # If not the first iteration, increase the frequency of the recently added
         # last kmer. If that frequency >= t, add the kmer to the set of clumps
         last_kmer = DNA[i+L-k:i+L]
-        f = fa.get_frequency(last_kmer) + 1
-        fa.set_frequency(last_kmer, f)
-        if f >= t:
+        fa[last_kmer] += 1
+        if fa[last_kmer] >= t:
             clumps.add(last_kmer)
 
         # Decrese the frequency of the first kmer in the region, as the sliding
         # window will remove it
         first_kmer = DNA[i:i+k]
-        f = fa.get_frequency(first_kmer) - 1
-        fa.set_frequency(first_kmer, f)
-        first_window = False
+        fa[first_kmer] -= 1
     return clumps
 
 
