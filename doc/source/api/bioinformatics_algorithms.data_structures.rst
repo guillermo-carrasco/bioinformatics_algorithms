@@ -12,6 +12,14 @@ bioinformatics_algorithms.data_structures.arrays module
     :undoc-members:
     :show-inheritance:
 
+bioinformatics_algorithms.data_structures.dictionaries module
+-------------------------------------------------------------
+
+.. automodule:: bioinformatics_algorithms.data_structures.dictionaries
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

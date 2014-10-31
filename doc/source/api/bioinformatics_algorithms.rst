@@ -1,17 +1,13 @@
 bioinformatics_algorithms package
 =================================
 
-Submodules
-----------
+Subpackages
+-----------
 
-bioinformatics_algorithms.dna module
-------------------------------------
+.. toctree::
 
-.. automodule:: bioinformatics_algorithms.dna
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+    bioinformatics_algorithms.data_structures
+    bioinformatics_algorithms.dna
 
 Module contents
 ---------------
