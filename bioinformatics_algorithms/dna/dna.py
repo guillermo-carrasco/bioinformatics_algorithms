@@ -33,7 +33,7 @@ def pattern_count(t, p, start=0, end=0, m=0):
     return count
 
 
-def frequent_kmers(DNA, k, m=0):
+def frequent_kmers(DNA, k, m=0, reverse=False):
     """ Return a list of most frequent k-mers in DNA.
 
     :param DNA: String - DNA
@@ -46,11 +46,14 @@ def frequent_kmers(DNA, k, m=0):
     freq = 0
     frequent = set()
     for kmer, frequency in fd.iteritems():
+        rev = reverse_complement(kmer, as_string=True)
+        if reverse and rev in fd.keys():
+            frequency += fd[rev]
         if frequency > freq:
             freq = frequency
             frequent = set([kmer])
         elif frequency == freq:
-            frequent.add(kmer)
+                frequent.add(kmer)
     return frequent
 
 
