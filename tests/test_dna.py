@@ -34,12 +34,7 @@ class DNATests(unittest.TestCase):
         self.assertEqual(dna.reverse_complement(DNA), list(reverse))
         self.assertEqual(dna.reverse_complement(DNA, as_string=True), reverse)
 
-    def test_4_find_kmer(self):
-        """ Testing finding k-mer in DNA method...
-        """
-        self.assertEqual(dna.find_kmer('ATAT', 'GATATATGCATATACTT'), [1, 3, 9])
-
-    def test_5_find_clumps(self):
+    def test_4_find_clumps(self):
         """ Testing find clumps method...
         """
         DNA = 'CGGACTCGACAGATGTGAAGAACGACAATGTGAAGACTCGACACGACAGAGTGAAGAGAAGAGGAAACATTGTAA'
@@ -49,7 +44,7 @@ class DNATests(unittest.TestCase):
         res = {'CGACA', 'GAAGA'}
         self.assertEqual(dna.find_clumps(DNA, k, L, t), res)
 
-    def test_6_skew_genome(self):
+    def test_5_skew_genome(self):
         """ Testing skew genome method...
         """
         DNA = 'GAGCCACCGCGATA'

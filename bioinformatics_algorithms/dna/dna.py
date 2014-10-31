@@ -67,23 +67,6 @@ def reverse_complement(DNA, as_string=False):
     return reverse_comp
 
 
-def find_kmer(kmer, DNA, m=0):
-    """ Find all occurences of K-mer in DNA
-
-    :param kmer: String - K-mer to find in DNA
-    :param DNA: String - DNA
-    :param m: Integer - Allow for m mismatches
-
-    :return: List - Starting positions of kmer in DNA
-    """
-    res = []
-    k = len(kmer)
-    for i in range(len(DNA) - k + 1):
-        if hamming_distance(DNA[i:i+k], kmer) <= m:
-            res.append(i)
-    return res
-
-
 def find_clumps(DNA, k, L, t):
     """ Find kmers forming clumps in DNA
 
