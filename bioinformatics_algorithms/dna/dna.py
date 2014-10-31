@@ -47,7 +47,7 @@ def frequent_kmers(DNA, k, m=0, reverse=False):
     frequent = set()
     for kmer, frequency in fd.iteritems():
         rev = reverse_complement(kmer, as_string=True)
-        if reverse and rev in fd.keys():
+        if reverse and fd.has_key(rev):
             frequency += fd[rev]
         if frequency > freq:
             freq = frequency

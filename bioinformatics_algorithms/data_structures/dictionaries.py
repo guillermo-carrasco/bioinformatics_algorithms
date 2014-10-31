@@ -6,6 +6,12 @@ class FrequencyDict(defaultdict):
     """ Data structure to store frequency of K-mer in a DNA string
     """
     def __init__(self, DNA, K, m=0):
+        """ Initialize FrequencyDict
+
+        :param DNA: String - DNA chain
+        :param K: Integer - Length of the K-mer
+        :param m: Integer - Allow for mismatches
+        """
         super(FrequencyDict, self).__init__(int)
         # Increment frequency of all K-mers
         for i in range(len(DNA) - K + 1):
