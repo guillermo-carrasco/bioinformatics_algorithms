@@ -16,4 +16,27 @@ RNA_TO_AMINO={"UUU":"F", "UUC":"F", "UUA":"L", "UUG":"L",
               "GUU":"V", "GUC":"V", "GUA":"V", "GUG":"V",
               "GCU":"A", "GCC":"A", "GCA":"A", "GCG":"A",
               "GAU":"D", "GAC":"D", "GAA":"E", "GAG":"E",
-              "GGU":"G", "GGC":"G", "GGA":"G", "GGG":"G",}
+              "GGU":"G", "GGC":"G", "GGA":"G", "GGG":"G"}
+
+AMINIO_TO_RNA = {'M': ['AUG'],
+                 'H': ['CAU', 'CAC'],
+                 'Q': ['CAA', 'CAG'],
+                 'P': ['CCU', 'CCG', 'CCC', 'CCA'],
+                 'R': ['CGU', 'CGG', 'CGC', 'CGA', 'AGA', 'AGG'],
+                 'L': ['CUU', 'CUG', 'CUC', 'CUA', 'UUG', 'UUA'],
+                 'D': ['GAU', 'GAC'],
+                 'E': ['GAA', 'GAG'],
+                 'A': ['GCA', 'GCC', 'GCU', 'GCG'],
+                 'G': ['GGA', 'GGC', 'GGU', 'GGG'],
+                 'V': ['GUA', 'GUC', 'GUU', 'GUG'],
+                 'Y': ['UAC', 'UAU'],
+                 '*': ['UAG', 'UAA', 'UGA'],
+                 'S': ['UCA', 'UCC', 'UCU', 'UCG', 'AGU', 'AGC'],
+                 'C': ['UGC', 'UGU'],
+                 'W': ['UGG'],
+                 'F': ['UUC', 'UUU'],
+                 'N': ['AAC', 'AAU'],
+                 'K': ['AAA', 'AAG'],
+                 'T': ['ACA', 'ACC', 'ACG', 'ACU'],
+                 'I': ['AUU', 'AUC', 'AUA']
+                 }

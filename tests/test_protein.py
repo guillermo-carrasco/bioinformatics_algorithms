@@ -9,8 +9,14 @@ class TestProteinMethods(unittest.TestCase):
         """ Testing rna_to_amino method...
         """
         rna = 'AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA'
-        expected = 'MAMAPRTEINSTRING'
-        res = []
-        for a in protein.rna_to_amino(rna):
-            res.append(a)
-        self.assertEqual(expected, ''.join(res))
+        res = 'MAMAPRTEINSTRING'
+        self.assertEqual(res, ''.join(protein.rna_to_amino(rna)))
+
+
+    def test_2_encoded_bt(self):
+        """ Testing encoded_by method...
+        """
+        dna = 'ATGGCCATGGCCCCCAGAACTGAGATCAATAGTACCCGTATTAACGGGTGA'
+        amino = 'MA'
+        res = ['ATGGCC', 'ATGGCC', 'GGCCAT']
+        self.assertEqual(res, protein.encoded_by(dna, amino))
