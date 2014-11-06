@@ -73,7 +73,7 @@ def linear_spectrum(peptide):
         prefix_mass.append(MASS_TABLE[base] + prefix_mass[index])
     # And now calculate the linear spectrum using the prefix mass
     linear_spectrum = [0]
-    for i in range(len(peptide) - 1):
-        for j in range(i+1, len(peptide)):
+    for i in range(len(peptide)):
+        for j in range(i+1, len(peptide) + 1):
             linear_spectrum.append(prefix_mass[j] - prefix_mass[i])
     return sorted(linear_spectrum)
