@@ -64,16 +64,21 @@ def count_subpeptides(n):
     return n*(n-1)
 
 
-def linear_spectrum(peptide):
-    """ Returns the mass spectrum of a linear peptide
+def spectrum(peptide, cyclic=False):
+    """ Returns the mass spectrum of a peptide 
+
+    :param bool cyclic: Indicates that the peptide is a cyclic peptide
     """
     # Calculate mass prefixes
     prefix_mass = [0]
     for index, base in enumerate(peptide):
         prefix_mass.append(MASS_TABLE[base] + prefix_mass[index])
+    peptide_mass = prefix_mass[-1]
     # And now calculate the linear spectrum using the prefix mass
-    linear_spectrum = [0]
+    spectrum = [0]
     for i in range(len(peptide)):
         for j in range(i+1, len(peptide) + 1):
-            linear_spectrum.append(prefix_mass[j] - prefix_mass[i])
-    return sorted(linear_spectrum)
+            spectrum.append(prefix_mass[j] - prefix_mass[i])
+            if cyclic and (i > 0 and j < len(peptide)):
+                spectrum.append(peptide_mass - (prefix_mass[j] - prefix_mass[i]))
+    return sorted(spectrum)
