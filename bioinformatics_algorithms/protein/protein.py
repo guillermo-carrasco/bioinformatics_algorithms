@@ -2,7 +2,7 @@ from string import maketrans
 
 from bioinformatics_algorithms.data_structures import dictionaries
 from bioinformatics_algorithms.dna import dna
-from bioinformatics_algorithms.protein import RNA_TO_AMINO, AMINIO_TO_RNA
+from bioinformatics_algorithms.protein import RNA_TO_AMINO, AMINIO_TO_RNA, MASS_TABLE
 
 
 def rna_to_amino(rna):
@@ -62,3 +62,18 @@ def count_subpeptides(n):
     So basically... n*n-1
     """
     return n*(n-1)
+
+
+def linear_spectrum(peptide):
+    """ Returns the mass spectrum of a linear peptide
+    """
+    # Calculate mass prefixes
+    prefix_mass = [0]
+    for index, base in enumerate(peptide):
+        prefix_mass.append(MASS_TABLE[base] + prefix_mass[index])
+    # And now calculate the linear spectrum using the prefix mass
+    linear_spectrum = [0]
+    for i in range(len(peptide) - 1):
+        for j in range(i+1, len(peptide)):
+            linear_spectrum.append(prefix_mass[j] - prefix_mass[i])
+    return sorted(linear_spectrum)
