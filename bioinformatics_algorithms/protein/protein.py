@@ -51,3 +51,14 @@ def encoded_by(DNA, amino_seq):
         f = fd.get(e_rev, 0)
         res.extend([e_rev]*f)
     return res
+
+
+def count_subpeptides(n):
+    """ Return the number of sub-peptides of a cyclic peptide of length n.
+
+    As it is cyclic, it can always form n groups of length 1, 2, 3, ..., n-1. I.e
+    the peptide NQEL can form: N, Q, E, L, NQ, QE, EL, LN, NQE, QEL, ELN, LNQ == 12
+
+    So basically... n*n-1
+    """
+    return n*(n-1)
