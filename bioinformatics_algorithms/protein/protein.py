@@ -82,3 +82,30 @@ def spectrum(peptide, cyclic=False):
             if cyclic and (i > 0 and j < len(peptide)):
                 spectrum.append(peptide_mass - (prefix_mass[j] - prefix_mass[i]))
     return sorted(spectrum)
+
+
+def peptides_with_mass(mass, recursive=False):
+    """ Compute the number of peptides of given mass.
+
+    It is a variation of a common Dynamic Programming problem called the Coin Change
+    http://www.algorithmist.com/index.php/Coin_Change
+    """
+    if recursive:
+        mass_table = sorted(set(MASS_TABLE.values()))
+        return _peptides_with_mass_rec(mass_table, mass)
+    else:
+        raise NotImplementedError('Sorry, Dynamic Programming version not implemented yet.')
+
+
+def _peptides_with_mass_rec(mass_table, mass):
+    """ Recursive version of peptides_with_mass
+    """
+    if len(mass_table) == 0 and mass > 0:
+        return 0
+    elif mass < 0:
+        return 0
+    elif mass == 0:
+        return 1
+    else:
+        return _peptides_with_mass_rec(mass_table, mass - mass_table[0]) + \
+               _peptides_with_mass_rec(mass_table[1:], mass)
