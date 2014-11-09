@@ -3,6 +3,7 @@ from string import maketrans
 from bioinformatics_algorithms.data_structures import dictionaries
 from bioinformatics_algorithms.dna import dna
 from bioinformatics_algorithms.protein import RNA_TO_AMINO, AMINIO_TO_RNA, MASS_TABLE
+from bioinformatics_algorithms.utils import factorial
 
 
 def rna_to_amino(rna):
@@ -87,17 +88,21 @@ def spectrum(peptide, cyclic=False):
 def peptides_with_mass(mass, recursive=False):
     """ Compute the number of peptides of given mass.
 
-    It is a variation of a common Dynamic Programming problem called the Coin Change
+    It is a variation of a classic Dynamic Programming problem called the Coin Change
     http://www.algorithmist.com/index.php/Coin_Change
+
+    The order matters, so we need to save the set of aminoacids which mass sums `mass`
+    and sum to the solution the total number of permutations of each set.
     """
     if recursive:
-        mass_table = sorted(set(MASS_TABLE.values()))
-        return _peptides_with_mass_rec(mass_table, mass)
+        amin_table = ['G', 'A', 'S', 'P', 'V', 'T', 'C', 'I', 'L', 'N', 'D', 'K', 'Q', 'E', 'M', 'H', 'F', 'R', 'Y', 'W']
+        mass_table = [57, 71, 87, 97, 99, 101, 103, 113, 113, 114, 115, 128, 128, 129, 131, 137, 147, 156, 163, 186]
+        return _peptides_with_mass_rec(mass_table, amin_table, mass, '')
     else:
         raise NotImplementedError('Sorry, Dynamic Programming version not implemented yet.')
 
 
-def _peptides_with_mass_rec(mass_table, mass):
+def _peptides_with_mass_rec(mass_table, amin_table, mass, peptide):
     """ Recursive version of peptides_with_mass
     """
     if len(mass_table) == 0 and mass > 0:
@@ -105,7 +110,7 @@ def _peptides_with_mass_rec(mass_table, mass):
     elif mass < 0:
         return 0
     elif mass == 0:
-        return 1
+        return factorial(len(peptide))
     else:
-        return _peptides_with_mass_rec(mass_table, mass - mass_table[0]) + \
-               _peptides_with_mass_rec(mass_table[1:], mass)
+        return _peptides_with_mass_rec(mass_table, amin_table, mass - mass_table[0], peptide + amin_table[0]) + \
+               _peptides_with_mass_rec(mass_table[1:], amin_table[1:], mass, peptide)

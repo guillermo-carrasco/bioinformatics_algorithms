@@ -28,3 +28,9 @@ class TestProteinMethods(unittest.TestCase):
         cyclic = [0, 113, 114, 128, 129, 227, 242, 242, 257, 355, 356, 370, 371, 484]
         self.assertEqual(protein.spectrum(peptide), linear)
         self.assertEqual(protein.spectrum(peptide, cyclic=True), cyclic)
+
+    def test_4_peptides_with_mass(self):
+        """ Testing number of peptides with a given mass method...
+        """
+        mass = 1024
+        self.assertEqual(14712706211, protein.peptides_with_mass(mass, recursive=True))
