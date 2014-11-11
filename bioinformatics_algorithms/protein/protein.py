@@ -1,3 +1,4 @@
+from itertools import permutations
 from string import maketrans
 
 from bioinformatics_algorithms.data_structures import dictionaries
@@ -94,12 +95,13 @@ def peptides_with_mass(mass, recursive=False):
     The order matters, so we need to save the set of aminoacids which mass sums `mass`
     and sum to the solution the total number of permutations of each set.
     """
+    amin_table = ['G', 'A', 'S', 'P', 'V', 'T', 'C', 'I', 'L', 'N', 'D', 'K', 'Q', 'E', 'M', 'H', 'F', 'R', 'Y', 'W']
+    mass_table = [57, 71, 87, 97, 99, 101, 103, 113, 113, 114, 115, 128, 128, 129, 131, 137, 147, 156, 163, 186]
     if recursive:
-        amin_table = ['G', 'A', 'S', 'P', 'V', 'T', 'C', 'I', 'L', 'N', 'D', 'K', 'Q', 'E', 'M', 'H', 'F', 'R', 'Y', 'W']
-        mass_table = [57, 71, 87, 97, 99, 101, 103, 113, 113, 114, 115, 128, 128, 129, 131, 137, 147, 156, 163, 186]
         return _peptides_with_mass_rec(mass_table, amin_table, mass, '')
     else:
-        raise NotImplementedError('Sorry, Dynamic Programming version not implemented yet.')
+        return _peptides_with_mass_dyn(mass_table, mass)
+        #raise NotImplementedError('Sorry, Dynamic Programming version not implemented yet.')
 
 
 def _peptides_with_mass_rec(mass_table, amin_table, mass, peptide):
@@ -110,7 +112,19 @@ def _peptides_with_mass_rec(mass_table, amin_table, mass, peptide):
     elif mass < 0:
         return 0
     elif mass == 0:
-        return factorial(len(peptide))
+        return len(set([p for p in permutations(peptide)]))
     else:
         return _peptides_with_mass_rec(mass_table, amin_table, mass - mass_table[0], peptide + amin_table[0]) + \
                _peptides_with_mass_rec(mass_table[1:], amin_table[1:], mass, peptide)
+
+
+def _peptides_with_mass_dyn(mass_table, mass):
+    """ Count number of linear peptides of a given mass
+    """
+    res = [0]
+    for i in range(1, mass+1):
+        res.append(res[i-1])
+        for m in mass_table:
+            if m + res[i-1] == i:
+                res[i] += 1
+    return res[-1]
