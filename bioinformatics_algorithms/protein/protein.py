@@ -86,6 +86,7 @@ def spectrum(peptide, cyclic=False):
     return sorted(spectrum)
 
 
+# XXX: Move on... will do it after they explain DP, probably will detail this problem
 def peptides_with_mass(mass, recursive=False):
     """ Compute the number of peptides of given mass.
 
@@ -128,3 +129,5 @@ def _peptides_with_mass_dyn(mass_table, mass):
             if m + res[i-1] == i:
                 res[i] += 1
     return res[-1]
+
+###########
