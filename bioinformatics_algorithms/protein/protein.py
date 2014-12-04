@@ -86,6 +86,25 @@ def spectrum(peptide, cyclic=False):
     return sorted(spectrum)
 
 
+def score(peptide, theoretical_spectrum):
+    """ Compute the score of a cyclic peptide against a spectrum
+    """
+    _spectrum = spectrum(peptide, cyclic=True)
+    i = 0
+    j = 0
+    score = 0
+    while i < len(theoretical_spectrum) and j < len(_spectrum):
+        if theoretical_spectrum[i] == _spectrum[j]:
+            score += 1
+            i += 1
+            j += 1
+        elif theoretical_spectrum[i] > _spectrum[j]:
+            j += 1
+        else:
+            i += 1
+    return score
+
+
 # XXX: Move on... will do it after they explain DP, probably will detail this problem
 def peptides_with_mass(mass, recursive=False):
     """ Compute the number of peptides of given mass.
@@ -104,6 +123,27 @@ def peptides_with_mass(mass, recursive=False):
         return _peptides_with_mass_dyn(mass_table, mass)
         #raise NotImplementedError('Sorry, Dynamic Programming version not implemented yet.')
 
+
+def peptides_with_mass(mass):
+    peptides = [([p], m) for p, m in MASS_TABLE.iteritems()]
+    result = set()
+    [result.add(''.join(p)) for p, m in peptides if m == mass]
+    changed = True
+    while changed:
+        new_peptides = []
+        for i in range(len(peptides)):
+            changed = False
+            peptide, mass_peptide = peptides[i]
+            for a, m in MASS_TABLE.iteritems():
+                if (mass_peptide + m) == mass:
+                    result.add(''.join(peptide + [a]))
+                elif (mass_peptide + m) < mass:
+                    changed = True
+                    new_peptide = (peptide + [a], mass_peptide + m)
+                    new_peptides.append(new_peptide)
+        peptides = new_peptides
+
+    return len(result)
 
 def _peptides_with_mass_rec(mass_table, amin_table, mass, peptide):
     """ Recursive version of peptides_with_mass
