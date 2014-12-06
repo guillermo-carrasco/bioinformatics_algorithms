@@ -8,6 +8,7 @@ Subpackages
 
     bioinformatics_algorithms.data_structures
     bioinformatics_algorithms.dna
+    bioinformatics_algorithms.io
     bioinformatics_algorithms.protein
 
 Submodules
