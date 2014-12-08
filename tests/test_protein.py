@@ -21,10 +21,17 @@ class TestProteinMethods(unittest.TestCase):
         self.assertEqual(res, protein.encoded_by(dna, amino))
 
     def test_3_spectrum(self):
-        """ Testing mass spectrum calculation methods...
+        """ Testing mass spectrum calculation...
         """
         peptide = 'LEQN'
         linear = [0, 113, 114, 128, 129, 242, 242, 257, 370, 371, 484]
         cyclic = [0, 113, 114, 128, 129, 227, 242, 242, 257, 355, 356, 370, 371, 484]
         self.assertEqual(protein.spectrum(peptide), linear)
         self.assertEqual(protein.spectrum(peptide, cyclic=True), cyclic)
+
+    def test_4_peptides_with_mass(self):
+        """ Testing peptide with given mass...
+        """
+        mass = 1024
+        peptides = 14712706211
+        self.assertEqual(protein.peptides_with_mass(mass), peptides)
