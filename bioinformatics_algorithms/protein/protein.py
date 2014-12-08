@@ -110,11 +110,9 @@ def score(peptide, theoretical_spectrum):
 def peptides_with_mass(mass, recursive=False):
     """ Compute the number of peptides of given mass.
 
-    It is a variation of a classic Dynamic Programming problem called the Coin Change
-    http://www.algorithmist.com/index.php/Coin_Change
 
-    The order matters, so we need to save the set of aminoacids which mass sums `mass`
-    and sum to the solution the total number of permutations of each set.
+    The order DOES matter, so we need to save the correct results and sum to the 
+    solution the total number of permutations of each result.
     """
     amin_table = ['G', 'A', 'S', 'P', 'V', 'T', 'C', 'L', 'N', 'D', 'Q', 'E', 'M', 'H', 'F', 'R', 'Y', 'W']
     mass_table = [57, 71, 87, 97, 99, 101, 103, 113, 114, 115, 128, 129, 131, 137, 147, 156, 163, 186]
